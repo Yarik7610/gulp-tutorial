@@ -5,8 +5,8 @@ const { watch, parallel } = require("gulp")
 const browserSync = require("browser-sync").create()
 
 function watching() {
-  watch(["src/scss/style.css"], styles)
-  watch(["src/js/main.js"], scripts)
+  watch(["src/scss/style.scss"], styles).on("change", browserSync.reload)
+  watch(["src/js/main.js"], scripts).on("change", browserSync.reload)
   watch(["src/*.html"]).on("change", browserSync.reload) //.reload == full page reload
 }
 
