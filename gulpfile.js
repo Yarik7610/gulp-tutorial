@@ -1,13 +1,14 @@
-const { watch, parallel } = require("gulp")
+const { src, dest, watch, series, parallel } = require("gulp")
 const browserSync = require("browser-sync").create()
 
-const { src, dest } = require("gulp")
 const concat = require("gulp-concat") //union all files into one file + rename (use gulp-rename for only renaming)
 
 const scss = require("gulp-sass")(require("sass"))
 const autoprefixer = require("gulp-autoprefixer")
 
 const uglify = require("gulp-uglify-es").default //minificate js-code, like scss({outputStyle: "compressed"})
+
+const clean = require("gulp-clean")
 
 function styles() {
   return src("src/scss/style.scss")
@@ -41,7 +42,10 @@ function browsersync() {
   })
 }
 
-function build() {
+function cleanDist() {
+  return src("dist").pipe(clean())
+}
+function buildDist() {
   return src(["src/css/style.min.css", "src/js/main.min.js", "src/**/*.html"], { base: "src" }).pipe(dest("dist")) //base: "src" means save the same folder structure in dist as in src folder
 }
 
@@ -49,6 +53,6 @@ exports.styles = styles //gulp styles in terminal
 exports.scripts = scripts
 exports.watching = watching
 exports.browsersync = browsersync
-exports.build = build
+exports.build = series(cleanDist, buildDist)
 
 exports.default = parallel(styles, scripts, browsersync, watching)
