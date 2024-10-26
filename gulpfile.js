@@ -19,7 +19,7 @@ function styles() {
 }
 
 function scripts() {
-  return src("src/js/main.js")
+  return src(["node_modules/swiper/swiper-bundle.js", "src/js/main.js"])
     .pipe(concat("main.min.js"))
     .pipe(uglify())
     .pipe(dest("src/js"))
