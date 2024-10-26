@@ -1,7 +1,7 @@
 const { styles } = require("./styles")
 const { scripts } = require("./scripts")
 
-const { watch } = require("gulp")
+const { watch, parallel } = require("gulp")
 const browserSync = require("browser-sync").create()
 
 function watching() {
@@ -23,3 +23,5 @@ exports.styles = styles //gulp styles in terminal
 exports.scripts = scripts
 exports.watching = watching
 exports.browsersync = browsersync
+
+exports.default = parallel(styles, scripts, browsersync, watching)
