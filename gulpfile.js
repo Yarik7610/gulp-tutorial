@@ -41,9 +41,14 @@ function browsersync() {
   })
 }
 
+function build() {
+  return src(["src/css/style.min.css", "src/js/main.min.js", "src/**/*.html"], { base: "src" }).pipe(dest("dist")) //base: "src" means save the same folder structure in dist as in src folder
+}
+
 exports.styles = styles //gulp styles in terminal
 exports.scripts = scripts
 exports.watching = watching
 exports.browsersync = browsersync
+exports.build = build
 
 exports.default = parallel(styles, scripts, browsersync, watching)
