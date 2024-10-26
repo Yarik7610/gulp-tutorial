@@ -1,1 +1,1 @@
-console.log("hi")
+const box = document.querySelector(".box")
